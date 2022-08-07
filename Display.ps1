@@ -19,7 +19,7 @@ function Show-Params (
     Shows a formatted message.
     The inline parameters descriptions will only show up if this description exists.
 #> 
-function Show-MyMsg(
+function Show-MyMsg (
     # The message that will be displayed
     [string] $msg,
 
@@ -30,3 +30,36 @@ function Show-MyMsg(
 ) {
     Write-Host "[$($prefix)] - $($msg)"
 }
+
+
+<#
+.SYNOPSIS
+    Shows a description about an item
+#>
+function Show-MyInfo (
+    # The item that should be displayed
+    [parameter(Mandatory = $true)]
+    [string] $item
+) {
+    Write-Host "You have selected $($item)"
+}
+
+# Runs once when you press tab for completion
+function Get-MyInfoItems {
+    Write-Host $args
+
+    $result = @()
+
+    foreach ($item in 1..10) {
+        $result += "Item_$($item)"
+    }
+
+    return $result
+}
+
+
+Register-ArgumentCompleter `
+    -CommandName Show-MyInfo `
+    -ParameterName item `
+    -ScriptBlock { Get-MyInfoItems }
+
