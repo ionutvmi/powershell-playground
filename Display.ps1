@@ -45,13 +45,13 @@ function Show-MyInfo (
 }
 
 # Runs once when you press tab for completion
-function Get-MyInfoItems {
-    Write-Host $args
+function Get-MyInfoItems ([string] $word) {
+    $word = $word.Trim()
 
     $result = @()
 
     foreach ($item in 1..10) {
-        $result += "Item_$($item)"
+        $result += "Item-$($word)-$($item)"
     }
 
     return $result
@@ -61,5 +61,8 @@ function Get-MyInfoItems {
 Register-ArgumentCompleter `
     -CommandName Show-MyInfo `
     -ParameterName item `
-    -ScriptBlock { Get-MyInfoItems }
+    -ScriptBlock {`
+        param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters) `
+        Get-MyInfoItems $wordToComplete`
+}
 
