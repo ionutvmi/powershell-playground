@@ -21,4 +21,6 @@ foreach ($item in $priceMap.GetEnumerator()) {
     Write-Output "$($item.Key) has the price $($item.Value)"
 }
 
+Write-Output $("{0}.{1}" -f $priceMap.GetType().Namespace, $priceMap.GetType().Name)
+
 

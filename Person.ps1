@@ -6,6 +6,10 @@ class Person {
     [ValidateNotNullOrEmpty()][string]$name
     [int]$yob
 
+    # Parameter less constructor to allow for hashmap -> person
+    # conversion of types
+    Person() {}
+
     Person([string]$name, [int]$yob) {
         # Write-Output doesn't work because only the return values are sent 
         # to the pipeline. To display anything we need to use Write-Host
@@ -30,3 +34,12 @@ Write-Output "`$minAge = $minAge"
 Write-Output $([Person]::MIN_AGE)
 
 # [Person]::new("", 1990)
+
+$p2 = [Person]@{
+    "name" = "George"
+    "yob"  = 1986
+}
+
+Write-Output "`n `$p2 =" 
+Write-Output $p2
+
