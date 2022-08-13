@@ -21,6 +21,7 @@ function Show-Params (
 #> 
 function Show-MyMsg (
     # The message that will be displayed
+    [Alias("message")]
     [string] $msg,
 
     # The prefix used in front of the message. 
